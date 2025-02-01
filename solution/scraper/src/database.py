@@ -2,8 +2,8 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Configura la conexión a PostgreSQL
-DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost:9040/sgca"
+#conexión a pg
+DATABASE_URL = "postgresql+psycopg2://f1_sgcan:f1_sgcan123456@localhost:9040/f1_database"
 
 engine = create_engine(DATABASE_URL)
 
@@ -21,5 +21,4 @@ class ScrapingResult(Base):
     content = Column(Text, nullable=True)
     date = Column(String, nullable=True)
 
-# Crea las tablas en la base de datos (si no existen)
 Base.metadata.create_all(bind=engine)

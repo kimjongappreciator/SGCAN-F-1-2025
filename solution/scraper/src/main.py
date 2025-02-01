@@ -25,10 +25,6 @@ def read_links_from_file(filename: str) -> list[str]:
 def read_root():
     return {"message": "Hello, FastAPI with Docker!"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
 
 @app.post("/process")
 async def process_file(file: FileName):
