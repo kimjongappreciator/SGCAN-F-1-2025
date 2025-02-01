@@ -1,0 +1,8 @@
+pip install psycopg2
+pip install sqlalchemy
+pip install uvicorn
+pip install redis
+pip install celery
+pip install fastapi
+pip install requests
+pip install beautifulsoup4
