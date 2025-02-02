@@ -31,8 +31,7 @@ def read_root():
 async def process_file(file: FileName):
     try:
         
-        links = read_links_from_file(file.filename)
-        print(f"📄 Enlaces leídos: {links}")  # Borrar despues
+        links = read_links_from_file(file.filename)        
 
         task_ids = []
                 
@@ -42,7 +41,7 @@ async def process_file(file: FileName):
         
         return {"message": "Tareas enviadas", "task_ids": task_ids}
     
-    except ValueError as e:
+    except ValueError as e:        
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error interno: {e}")

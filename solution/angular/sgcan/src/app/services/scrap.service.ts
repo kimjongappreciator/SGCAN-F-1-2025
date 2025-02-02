@@ -25,4 +25,14 @@ export class ScrapService {
     return this.http.get<string[]>(`${this.baseUrl}/files/${id}/links`).pipe(catchError(this.handleError));
   }
 
+  uploadFile(file: File, id: string): Observable<any>{
+    const formData = new FormData();
+    formData.append('UserId', id);
+    formData.append('file', file);
+    return this.http.post(`${this.baseUrl}/upload`, formData).pipe(catchError(this.handleError));
+  }
+  processFile(payload: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/process`, payload).pipe(catchError(this.handleError));
+  }
+
 }

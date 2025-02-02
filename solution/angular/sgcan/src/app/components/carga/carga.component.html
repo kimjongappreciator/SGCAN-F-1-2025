@@ -1,1 +1,26 @@
-<p>carga works!</p>
+
+<div style="height: 85vh;">
+  <mat-card style="padding: 15px;
+    width: 650px;
+    margin: auto;">
+    <mat-card-header style="justify-content: center;">
+      <mat-card-title>
+        Carga de Archivos
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="display: flex; justify-content: center;">
+      <button mat-fab extended style="background-color: #696cff3d; margin-left: 15px; color: black;" (click)="fileUpload.click()" matTooltip="Seleccionar Archivo">
+        <mat-icon>add_link</mat-icon>
+        Seleccionar archivo
+      </button>
+      <input type="file" (change)="onFileChange($event)" style="display: none;" #fileUpload/>
+      <button mat-fab extended style="background-color: #696cff3d; margin-left: 15px; color: black;" (click)="uploadFile()" matTooltip="Procesar">
+        <mat-icon>manage_search</mat-icon>
+        Procesar archivo
+      </button>
+    </mat-card-content>
+    @if(isLoading){
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+  </mat-card>
+</div>

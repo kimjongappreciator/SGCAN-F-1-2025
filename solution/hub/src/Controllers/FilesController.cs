@@ -73,17 +73,19 @@ public class FilesController : ControllerBase
         }
         var url = "http://localhost:8000/process/";
         
+        var path = Path.Combine(_fileStoragePath, file.filename);
+        var finalPath = Path.GetFullPath(path);
+        file.filename = finalPath;
+        
         string payload = JsonSerializer.Serialize(file);
-        Console.WriteLine(payload);
         var content = new StringContent(payload,Encoding.UTF8, "application/json");
         
         HttpResponseMessage response = await client.PostAsync(url, content);
-        if (!response.IsSuccessStatusCode)
-        {
-            Console.WriteLine(response.StatusCode);
-            return BadRequest("error al contactar al api");
+        if (!response.IsSuccessStatusCode) {
+            
+            return BadRequest("Error while processing file.");
         }
-        return Ok("Archivo processado correctamente.");
+        return Ok();
     }
     
 
