@@ -5,9 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginModel } from '../../models/loginModel';
 
 @Component({
   selector: 'app-login',
@@ -21,30 +22,41 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  user: any = {
-    username: undefined,
-    password: undefined
+  user: LoginModel = {
+    email: '',
+    password: ''
   };
 
-  constructor(private _snackBar: MatSnackBar, private _authService: AuthService){}
+  constructor(private _snackBar: MatSnackBar, private _authService: AuthService, private router: Router){}
 
   handleError(err: any){
     if (err.code==0){
         this._snackBar.open("Error de conexión", "OK", {duration: 3000});
     }else{
-        this._snackBar.open(err.error.message, "OK", {duration: 3000});
+        this._snackBar.open(err.error.title, "OK", {duration: 3000});
     }
   }
 
   login(){
+
     if (this.username=='' || this.password==''){
         this._snackBar.open("Debe ingresar usuario y contraseña", "OK", {duration: 3000});
         return;
     }
-    this.user.username = this.username;
+    this.user.email = this.username;
     this.user.password = this.password;
 
-    console.log(this.user)
+    this._authService.login(this.user).subscribe({
+        next: (res) => {
+            sessionStorage.setItem('id', res.userId);
+            sessionStorage.setItem('name', res.name);
+            this.router.navigate(['/home']);
+        },
+        error: (err) => {
+            this.handleError(err);
+        }
+    });
+
   }
 
 }

@@ -11,8 +11,13 @@ builder.Services.AddDbContext<AppDbContext>(options=>
 builder.Services.AddControllers();
 builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<LinkExtractorService>();
-
-
+builder.Services.AddCors(op =>
+{
+    op.AddPolicy("angularApp", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().Build();
+    });
+});
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -22,4 +27,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.MapControllers();
+app.UseCors("angularApp");
 app.Run();

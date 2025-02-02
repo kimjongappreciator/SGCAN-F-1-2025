@@ -1,0 +1,27 @@
+<mat-accordion>
+  @for(item of fileArray; track item.fileName){
+  <mat-expansion-panel (opened)="loadContent(item.id)" (closed)="clearArray()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Nombre del archivo</mat-panel-title>
+      <mat-panel-description>{{item.fileName}}</mat-panel-description>
+    </mat-expansion-panel-header>
+    @if(loadingUrls){
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+    @if(detailsArray){
+      @for(item of detailsArray; track item.task_id){
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Titulo del Articulo{{item.title}}</mat-card-title>
+            <mat-card-subtitle>Fecha del Articulo {{item.date}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>Enlace: {{item.url}}</mat-card-content>
+          <mat-card-actions>
+            <button mat-fab extended (click)="openContent(item.content)"><mat-icon>visibility</mat-icon> Ver Contenido</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    }
+  </mat-expansion-panel>
+  }
+</mat-accordion>

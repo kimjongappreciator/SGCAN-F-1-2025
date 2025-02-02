@@ -108,35 +108,23 @@ public class FilesController : ControllerBase
     [HttpGet("files/{fileId}/links")]
     public async Task<IActionResult> GetFileLinks(Guid fileId)
     {
-        var fileEntity = await _context.Files.FindAsync(fileId);
-        if (fileEntity == null)
+        var responseEntity = await _context.scraping_results.Where(f => f.fileId == fileId.ToString()).Select(
+            f=> new
+            {
+               f.url,
+               f.content,
+               f.date,
+               f.task_id,
+               f.title
+            }).ToListAsync();
+        if (responseEntity.Count < 1)
         {
             return NotFound("Archivo no encontrado.");
         }
 
-        var name = Path.Combine(_fileStoragePath, fileEntity.FileName);
-        var normalizedPath = Path.GetFullPath(name);
-        Console.WriteLine(normalizedPath);
-        var payload = new
-        {
-            filename = normalizedPath,
-            fileId = fileEntity.Id,
-        };
-        var json = JsonConvert.SerializeObject(payload);
-        Console.WriteLine(json);
-        var req = new StringContent(json, Encoding.UTF8, "application/json");
-
-        string url = "http://localhost:8000/content";
-        
-        HttpResponseMessage response = await client.PostAsync(url, req);
-        
-        if (response.IsSuccessStatusCode)
-        {
-            var content = await response.Content.ReadAsStringAsync();
-            var res = JsonConvert.SerializeObject(content);
-            return Ok(res);
-        }
-        return NotFound("Archivo no encontrado.");
+        return Ok(responseEntity);
     }
+    
+    
     
 }

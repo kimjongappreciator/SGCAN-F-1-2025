@@ -1,0 +1,18 @@
+<mat-toolbar style="background-color: #374375; color: white;">
+  <span><strong>Bienvenido {{name}}</strong></span>
+  <span class="spacer"></span>
+  <a mat-button (click)="logOut()" style="color: whitesmoke;">Salir</a>
+</mat-toolbar>
+<mat-tab-group [(selectedIndex)]="selectedIndex">
+  <mat-tab label="Carga">
+    @if(selectedIndex == 0){
+      <app-carga></app-carga>
+    }
+  </mat-tab>
+  <mat-tab label="Detalles">
+    @if(selectedIndex == 1){
+      <app-detalles></app-detalles>
+    }
+  </mat-tab>
+
+</mat-tab-group>

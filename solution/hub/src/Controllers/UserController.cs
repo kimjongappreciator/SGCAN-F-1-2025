@@ -59,6 +59,6 @@ public class UserController :ControllerBase
             return Unauthorized("Correo electrónico o contraseña incorrectos.");
         }
         
-        return Ok(new { Message = "Login exitoso.", UserId = user.Id });
+        return Ok(new { Message = "Login exitoso.", UserId = user.Id, name = user.Name });
     }
 }
