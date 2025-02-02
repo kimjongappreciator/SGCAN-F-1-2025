@@ -32,8 +32,12 @@ export class LoginComponent {
   handleError(err: any){
     if (err.code==0){
         this._snackBar.open("Error de conexión", "OK", {duration: 3000});
-    }else{
-        this._snackBar.open(err.error.title, "OK", {duration: 3000});
+    }
+    else if (err.code==400){
+        this._snackBar.open("Direccion de correo invalida", "OK", {duration: 3000});
+    }
+    else{
+        this._snackBar.open(err.error.message, "OK", {duration: 3000});
     }
   }
 
@@ -53,6 +57,7 @@ export class LoginComponent {
             this.router.navigate(['/home']);
         },
         error: (err) => {
+            console.log(err)
             this.handleError(err);
         }
     });

@@ -18,7 +18,6 @@ import { VerContenidoComponent } from '../ver-contenido/ver-contenido.component'
 })
 export class DetallesComponent implements OnInit{
 
-  //readonly panelOpenState = signal(false);
   userId: string;
   fileArray: FileModel[] = [];
   detailsArray: detailsModel[] = [];

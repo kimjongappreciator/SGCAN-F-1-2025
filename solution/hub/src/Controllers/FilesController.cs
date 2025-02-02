@@ -12,6 +12,7 @@ public class FilesController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly string _fileStoragePath;
+    private readonly string _scrappinUrl;
     private readonly LinkExtractorService _linkExtractorService;
     private HttpClient client = new HttpClient();
     
@@ -19,6 +20,7 @@ public class FilesController : ControllerBase
     {
         _context = context;
         _fileStoragePath = configuration["FileStoragePath"];
+        _scrappinUrl = configuration["ScrappingUrl"];
         _linkExtractorService = linkExtractorService;
 
         // Crear el directorio si no existe
@@ -71,7 +73,8 @@ public class FilesController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        var url = "http://localhost:8000/process/";
+        var url = _scrappinUrl;
+        Console.WriteLine(url);
         
         var path = Path.Combine(_fileStoragePath, file.filename);
         var finalPath = Path.GetFullPath(path);

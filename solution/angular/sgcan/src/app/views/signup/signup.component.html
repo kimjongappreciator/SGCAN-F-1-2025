@@ -1,1 +1,52 @@
-<p>signup works!</p>
+<div style="display: flex; justify-content: center; align-content: center; align-items: center; background-color: rgba(46, 46, 46, 0.884);; background-size: cover; height: 100%;" >
+  <mat-card style="width: 500px; height: 400px;">
+      <mat-card-header style="justify-content: center; margin-bottom: 10px; text-align: center;">
+        <mat-card-title>Registro</mat-card-title>
+        <mat-card-subtitle>Llene los datos requeridos</mat-card-subtitle>
+      </mat-card-header>
+
+      <form class="example-form" (ngSubmit)="registrar()">
+        <div style="justify-content: center; display: flex;">
+          <mat-form-field class="example-full-width" style="width: 250px;">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="emailFormControl" placeholder="Ej. jim123@mail.com">
+            @if (emailFormControl.hasError('required')) {
+              <mat-error>Campo <strong>obligatorio</strong></mat-error>
+            }
+            @if(emailFormControl.hasError('email')){
+              <mat-error>El email debe ser <strong>Valido</strong></mat-error>
+            }
+
+          </mat-form-field>
+        </div>
+        <div style="justify-content: center; display: flex;">
+          <mat-form-field class="example-full-width" style="width: 250px;">
+            <mat-label>Nombre</mat-label>
+            <input matInput [formControl]="nameFormControl" placeholder="Ej. Jim">
+            @if (nameFormControl.hasError('required')) {
+              <mat-error>Campo <strong>obligatorio</strong></mat-error>
+            }
+
+          </mat-form-field>
+        </div>
+        <div style="justify-content: center; display: flex;">
+          <mat-form-field class="example-full-width" style="width: 250px;">
+              <mat-label>Contraseña</mat-label>
+              <input matInput [formControl]="passwordFormControl" [type]="hide ? 'password' : 'text'" placeholder="Min 8 caracteres">
+              <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </a>
+              @if (passwordFormControl.hasError('required')) {
+                  <mat-error>Campo <strong>obligatorio</strong></mat-error>
+                }
+          </mat-form-field>
+        </div>
+
+
+        <mat-card-actions style="justify-content: center;">
+          <button mat-button>Registrarme</button>
+          <a mat-button color="warn" (click)="cancelar()" >Cancelar</a>
+        </mat-card-actions>
+      </form>
+  </mat-card>
+  </div>

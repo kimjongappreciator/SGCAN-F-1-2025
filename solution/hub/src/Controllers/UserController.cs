@@ -42,21 +42,21 @@ public class UserController :ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            return BadRequest(new {message= "Correo electrónico o contraseña incorrectos"});
         }
        
         var user = await _context.User.FirstOrDefaultAsync(u => u.Email == loginRequest.Email);
 
         if (user == null)
         {
-            return Unauthorized("Correo electrónico o contraseña incorrectos.");
+            return Unauthorized(new {message="Correo electrónico o contraseña incorrectos."});
         }
         
         var match = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password);
         
         if (!match)
         {
-            return Unauthorized("Correo electrónico o contraseña incorrectos.");
+            return Unauthorized(new {message="Correo electrónico o contraseña incorrectos."});
         }
         
         return Ok(new { Message = "Login exitoso.", UserId = user.Id, name = user.Name });

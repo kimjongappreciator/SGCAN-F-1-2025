@@ -20,5 +20,9 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, user).pipe(catchError(this.handleError));
   }
 
+  register(user: any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/register`, user).pipe(catchError(this.handleError));
+  }
+
 
 }
