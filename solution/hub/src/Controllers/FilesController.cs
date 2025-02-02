@@ -133,7 +133,8 @@ public class FilesController : ControllerBase
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            return Ok(content);
+            var res = JsonConvert.SerializeObject(content);
+            return Ok(res);
         }
         return NotFound("Archivo no encontrado.");
     }
