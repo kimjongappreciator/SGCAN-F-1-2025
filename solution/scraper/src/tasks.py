@@ -4,7 +4,7 @@ from celery_config import app
 from database import SessionLocal, ScrapingResult
 
 @app.task(bind=True)
-def extract_data(self, url):    
+def extract_data(self, url, fileId):    
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
@@ -27,6 +27,7 @@ def extract_data(self, url):
             title=result["title"],
             content=result["content"],
             date=result["date"],
+            fileId= fileId,  # Guarda el fileId
             task_id=self.request.id  # Guarda el task_id
         )
         db.add(db_result)

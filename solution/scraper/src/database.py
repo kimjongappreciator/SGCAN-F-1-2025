@@ -15,6 +15,7 @@ class ScrapingResult(Base):
     __tablename__ = "scraping_results"
 
     id = Column(Integer, primary_key=True, index=True)
+    fileId = Column(String, nullable=True)
     task_id = Column(String, nullable=True)    
     url = Column(String, nullable=False)
     title = Column(String, nullable=True)

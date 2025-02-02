@@ -9,6 +9,7 @@ app = FastAPI()
 
 class FileName(BaseModel):
     filename: str
+    fileId: str
 
 def read_links_from_file(filename: str) -> list[str]:
     try:
@@ -36,7 +37,7 @@ async def process_file(file: FileName):
         task_ids = []
                 
         for link in links:            
-            task = extract_data.delay(link)
+            task = extract_data.delay(link, file.fileId)
             task_ids.append(task.id)
         
         return {"message": "Tareas enviadas", "task_ids": task_ids}
@@ -64,3 +65,18 @@ async def get_results():
     results = db.query(ScrapingResult).all()
     db.close()
     return results
+
+
+@app.get('/content/{filename}')
+async def get_content(filename: str):
+    print(filename)
+    try:
+        response = read_links_from_file(filename)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error interno: {e}")
+    
+    if(len(response) == 0):
+        return {"message": "No hay contenido"}
+    return response
