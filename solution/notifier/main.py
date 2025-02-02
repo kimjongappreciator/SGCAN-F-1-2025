@@ -17,7 +17,7 @@ class EmailRequest(BaseModel):
     body: str
 
 
-@app.post("/send-email")
+@app.post("/notify")
 async def send_email(request: EmailRequest):
     try:        
         message = MIMEMultipart()
