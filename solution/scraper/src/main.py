@@ -67,11 +67,11 @@ async def get_results():
     return results
 
 
-@app.get('/content/{filename}')
-async def get_content(filename: str):
-    print(filename)
+@app.post('/content')
+async def get_content(file: FileName):
+    print(file.filename)
     try:
-        response = read_links_from_file(filename)
+        response = read_links_from_file(file.filename)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:

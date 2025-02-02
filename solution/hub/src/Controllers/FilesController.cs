@@ -114,8 +114,21 @@ public class FilesController : ControllerBase
             return NotFound("Archivo no encontrado.");
         }
 
-        string url = "http://localhost:8000/content/" + fileEntity.FileName;
-        HttpResponseMessage response = await client.GetAsync(url);
+        var name = Path.Combine(_fileStoragePath, fileEntity.FileName);
+        var normalizedPath = Path.GetFullPath(name);
+        Console.WriteLine(normalizedPath);
+        var payload = new
+        {
+            filename = normalizedPath,
+            fileId = fileEntity.Id,
+        };
+        var json = JsonConvert.SerializeObject(payload);
+        Console.WriteLine(json);
+        var req = new StringContent(json, Encoding.UTF8, "application/json");
+
+        string url = "http://localhost:8000/content";
+        
+        HttpResponseMessage response = await client.PostAsync(url, req);
         
         if (response.IsSuccessStatusCode)
         {
