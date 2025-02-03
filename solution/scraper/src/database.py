@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 #conexión a pg
-DATABASE_URL = "postgresql+psycopg2://f1_sgcan:f1_sgcan123456@localhost:9040/f1_database"
+DATABASE_URL = "postgresql+psycopg2://f1_sgcan:f1_sgcan123456@host.docker.internal:5432/f1_database"
 
 engine = create_engine(DATABASE_URL)
 
