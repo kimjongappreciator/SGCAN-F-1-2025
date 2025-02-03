@@ -3,13 +3,16 @@ from pydantic import BaseModel
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+import os
+from dotenv import load_dotenv
 app = FastAPI()
+
+load_dotenv()
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SENDER_EMAIL = "XXXXXXX"
-SENDER_PASSWORD = "XXXXXXX"
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")  
 
 class EmailRequest(BaseModel):
     to_email: str
@@ -34,4 +37,5 @@ async def send_email(request: EmailRequest):
         return {"message": "Correo enviado exitosamente"}
 
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail=f"Error al enviar el correo: {e}")
