@@ -1,22 +1,12 @@
 services:
-
-  react:
-    container_name: f1_react
-    build:
-      context: ./react
-      dockerfile: Dockerfile
+  angular-app:
+    container_name: f1_angular
+    build: ./angular
+    dockerfile: Dockerfile
     ports:
-      - "9999:3000"
-    volumes:
-      - ./react:/app
-      - /app/node_modules
-      - /app/.next
-    environment:
-      - NODE_ENV=development
-    command: sh -c "pnpm install && pnpm dev"
+      - "9999:4200"
     networks:
       - f1_network
-
   hub:
     container_name: f1_hub
     build:
@@ -28,9 +18,10 @@ services:
       - ./hub/src:/app/src
       - /app/bin
       - /app/obj
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=f1_postgres;Database=f1_database;Username=f1_sgcan;Password=f1_sgcan123456
+      - C:/FileStorage:/app/file_storage
+    #environment:
+    #  - ASPNETCORE_ENVIRONMENT=Development
+    #  - ConnectionStrings__DefaultConnection=Host=f1_postgres;Database=f1_database;Username=f1_sgcan;Password=f1_sgcan123456
     depends_on:
       - postgres
     networks:
@@ -45,9 +36,22 @@ services:
       - "9020:8000"
     volumes:
       - ./scraper:/app
+      - C:/FileStorage:/app/file_storage
     depends_on:
       - postgres
       - redis
+    networks:
+      - f1_network
+  
+  notifier:
+    container_name: f1_notifier
+    build: 
+      context: ./notifier
+      dockerfile: dockerfile
+    environment:
+      - SENDER_EMAIL=value
+      - SENDER_PASSWORD = value
+      #no pongo los personales
     networks:
       - f1_network
 
@@ -57,6 +61,7 @@ services:
     hostname: f1_postgres
     volumes:
       - ./volumes/postgres_data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
     env_file:
       - ./envs/.env.postgres
     networks:

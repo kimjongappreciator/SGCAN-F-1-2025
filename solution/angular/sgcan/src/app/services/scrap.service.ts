@@ -11,7 +11,7 @@ export class ScrapService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:5000';
+  baseUrl = 'http://host.docker.internal:9010';
 
   handleError(error: HttpErrorResponse): Observable<any> {
     return throwError(()=>({code: error.status, error: error.error}));
