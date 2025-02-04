@@ -1,8 +1,0 @@
-psycopg2
-sqlalchemy
-uvicorn
-redis
-celery
-fastapi
-requests
-beautifulsoup4
