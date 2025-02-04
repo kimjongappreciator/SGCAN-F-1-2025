@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "YW7oD8esUCjmLIjm+jCXUZpYAw9YzOlS4Qr0stlxA9U=",
+  "Hash": "ZKBEibH56bnt9ZO/Pt7AQf306K+ub7gpSemVgIAK0mI=",
   "Source": "hub",
   "BasePath": "_content/hub",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

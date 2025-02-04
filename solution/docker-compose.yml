@@ -1,8 +1,9 @@
 services:
   angular-app:
     container_name: f1_angular
-    build: ./angular
-    dockerfile: Dockerfile
+    build: 
+      context: ./angular
+      dockerfile: Dockerfile
     ports:
       - "9999:4200"
     networks:
@@ -23,7 +24,8 @@ services:
     #  - ASPNETCORE_ENVIRONMENT=Development
     #  - ConnectionStrings__DefaultConnection=Host=f1_postgres;Database=f1_database;Username=f1_sgcan;Password=f1_sgcan123456
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - f1_network
 
@@ -38,8 +40,10 @@ services:
       - ./scraper:/app
       - C:/FileStorage:/app/file_storage
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - f1_network
   
@@ -69,6 +73,11 @@ services:
     ports:
       - "9040:5432"
     restart: "always"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U f1_sgcan -d f1_database || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   redis:
     image: redis:6.2-alpine

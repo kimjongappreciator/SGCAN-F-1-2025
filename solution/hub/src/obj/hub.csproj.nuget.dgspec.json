@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\repos\\SGCAN-F-1-2025\\solution\\hub\\src\\hub.csproj": {}
+    "/app/src/hub.csproj": {}
   },
   "projects": {
-    "E:\\repos\\SGCAN-F-1-2025\\solution\\hub\\src\\hub.csproj": {
+    "/app/src/hub.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\repos\\SGCAN-F-1-2025\\solution\\hub\\src\\hub.csproj",
+        "projectUniqueName": "/app/src/hub.csproj",
         "projectName": "hub",
-        "projectPath": "E:\\repos\\SGCAN-F-1-2025\\solution\\hub\\src\\hub.csproj",
-        "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
-        "outputPath": "E:\\repos\\SGCAN-F-1-2025\\solution\\hub\\src\\obj\\",
+        "projectPath": "/app/src/hub.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/app/src/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -32,13 +32,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -80,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.428/RuntimeIdentifierGraph.json"
         }
       }
     }
