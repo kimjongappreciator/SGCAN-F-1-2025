@@ -1,1 +1,1 @@
-## Agregar correo y contrasena de app en el dockerfile para el notifier
+## Agregar correo y contrasena de app en el docker-compose para el notifier
